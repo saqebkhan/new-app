@@ -10,7 +10,7 @@
             label="Search Between 0 to 250,000"
             class="ma-5"
             type="number"
-            :rules="rules.loanMin"
+            :rules="[rules.loanMin, rules.loadMax]"
             v-model="input"
           >
           </v-text-field>
@@ -32,6 +32,7 @@ export default {
       rules: {
         loanMin: (value) =>
           value <= 250000 || "Number should be less than 250000",
+        loadMax: (value) => value >= 0 || "Number should be greater than 0",
       },
     };
   },
