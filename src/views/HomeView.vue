@@ -1,15 +1,14 @@
 <template>
-  <hello-world />
+  <TravelExpense />
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import TravelExpense from "../components/TravelExpense.vue";
 
 export default {
   name: "Home-view",
-
   components: {
-    HelloWorld,
+    TravelExpense,
   },
 };
 </script>
