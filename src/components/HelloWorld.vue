@@ -1,133 +1,156 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">Welcome to Vuetify</h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br />please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank"
-            >Discord Community</a
+  <v-app>
+    <v-row>
+      <v-col>
+        <v-container>
+          <form @submit.prevent="card = true">
+            <h4>Personal Details</h4>
+            <v-row
+              ><v-col>
+                <v-text-field
+                  label="Full Name"
+                  outlined
+                  dense
+                  v-model="name"
+                ></v-text-field> </v-col
+              ><v-col>
+                <v-text-field label="Number" outlined dense></v-text-field
+              ></v-col>
+            </v-row>
+            <v-text-field
+              label="Address"
+              outlined
+              dense
+              v-model="address"
+            ></v-text-field>
+            <h4>Travel Details</h4>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  label="Starting Point"
+                  outlined
+                  dense
+                  v-model="startingPoint"
+                ></v-text-field
+              ></v-col>
+              <v-col>
+                <v-text-field
+                  label="Destination"
+                  outlined
+                  dense
+                  v-model="destination"
+                ></v-text-field
+              ></v-col>
+            </v-row>
+            <h4>Your Comfort</h4>
+            <v-row
+              ><v-col>
+                <v-select
+                  :items="seater"
+                  label="Seaters"
+                  outlined
+                  dense
+                  v-model="seats"
+                ></v-select></v-col
+              ><v-col>
+                <v-select
+                  :items="drivers"
+                  label="Number Of Drivers"
+                  outlined
+                  dense
+                  v-model="numberOfDrivers"
+                ></v-select></v-col
+            ></v-row>
+            <v-text-field
+              label="Number of Days"
+              outlined
+              dense
+              v-model="days"
+            ></v-text-field>
+            <v-btn :disabled="validate" type="submit">Submit</v-btn>
+            <v-btn @click="clear" class="ml-10">Clear</v-btn>
+          </form></v-container
+        ></v-col
+      ><v-col>
+        <!-- </v-container> -->
+        <v-card
+          class="mx-auto"
+          max-width="500"
+          style="height: 350px; margin-top: 30px"
+          v-if="card == true"
+        >
+          <v-img
+            class="white--text align-end"
+            height="200px"
+            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
           >
-        </p>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
+            <v-card-title>Welcome Mr. {{ name }}</v-card-title>
+          </v-img>
+          <v-card-subtitle class="pb-0">
+            Journey From {{ startingPoint }} to {{ destination }}
+          </v-card-subtitle>
+          <v-card-text class="text--primary">
+            <div>
+              The rent for {{ seats }} seater is
+              {{ seats == 5 ? 2000 : seats == 12 ? 8000 : 25000 }} and 300 per
+              night is charged, Hence the estimated travel expense for
+              {{ days }} days journey would be
+              {{ days * (seats == 5 ? 2300 : seats == 12 ? 8300 : 25300) }}
+              Rupees.
+            </div>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="orange" text> Share </v-btn>
+            <v-btn color="orange" text> Learn More </v-btn>
+          </v-card-actions>
+        </v-card></v-col
+      >
     </v-row>
-  </v-container>
+  </v-app>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
-
-  data: () => ({
-    ecosystem: [
-      {
-        text: "vuetify-loader",
-        href: "https://github.com/vuetifyjs/vuetify-loader",
-      },
-      {
-        text: "github",
-        href: "https://github.com/vuetifyjs/vuetify",
-      },
-      {
-        text: "awesome-vuetify",
-        href: "https://github.com/vuetifyjs/awesome-vuetify",
-      },
-    ],
-    importantLinks: [
-      {
-        text: "Documentation",
-        href: "https://vuetifyjs.com",
-      },
-      {
-        text: "Chat",
-        href: "https://community.vuetifyjs.com",
-      },
-      {
-        text: "Made with Vuetify",
-        href: "https://madewithvuejs.com/vuetify",
-      },
-      {
-        text: "Twitter",
-        href: "https://twitter.com/vuetifyjs",
-      },
-      {
-        text: "Articles",
-        href: "https://medium.com/vuetify",
-      },
-    ],
-    whatsNext: [
-      {
-        text: "Explore components",
-        href: "https://vuetifyjs.com/components/api-explorer",
-      },
-      {
-        text: "Select a layout",
-        href: "https://vuetifyjs.com/getting-started/pre-made-layouts",
-      },
-      {
-        text: "Frequently Asked Questions",
-        href: "https://vuetifyjs.com/getting-started/frequently-asked-questions",
-      },
-    ],
-  }),
+  data() {
+    return {
+      seater: [5, 12, 50],
+      drivers: [1, 2],
+      travelDetails: "",
+      name: "",
+      startingPoint: "",
+      destination: "",
+      seats: null,
+      days: null,
+      card: false,
+      numberOfDrivers: "",
+      address: "",
+    };
+  },
+  methods: {
+    clear() {
+      this.seater = "";
+      this.days = null;
+      this.name = "";
+      this.startingPoint = "";
+      this.destination = "";
+      this.card = false;
+      this.address = "";
+    },
+  },
+  computed: {
+    validate() {
+      if (
+        this.seats &&
+        this.days &&
+        this.name &&
+        this.destination &&
+        this.startingPoint
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
